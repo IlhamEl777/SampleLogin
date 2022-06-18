@@ -48,16 +48,20 @@ public class RegisterActivity extends AppCompatActivity {
                 //Check in the database is there any user associated with  this email
                 if (!sqliteHelper.isEmailExists(email)) {
                     //Email does not exist now add new user to database
-                    sqliteHelper.addUser(new User(null,username, email, password));
+                    sqliteHelper.addUser(new User(null, username, email, password));
                     Snackbar.make(buttonRegister, "User created successfully, Now you can login", Snackbar.LENGTH_LONG).show();
                     new Handler().postDelayed(() -> {
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
                         finish();
-                    }, Snackbar.LENGTH_LONG);
-                }else{
+                    }, 1500);
+
+                } else {
                     //Email exists with email input provided so show error user already exist
                     Snackbar.make(buttonRegister, "User already exist, please try another email", Snackbar.LENGTH_LONG).show();
                 }
-        }
+            }
+
         });
     }
 
@@ -132,8 +136,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         return valid;
     }
-
-
 
 
 }
